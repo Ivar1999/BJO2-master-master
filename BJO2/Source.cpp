@@ -27,20 +27,20 @@ struct Hand
 {
 	int sum;
 	vector <card> cards;
-	int getsum() {
+	int getsum()	// gets calue of hand 
+	{
+
 		int hand = 0;
 		int A = 0;
 		for (int i = 0; i < cards.size(); i++)
 		{
-			//cout << i+1 << ". card is: " << cards.at(i).value << endl;
-			//cout << i +1 << ". card is: " <<cards.at(i).display << endl;
 			hand += cards.at(i).value;
-			if (cards.at(i).value == 11) // Checks & Saves the aces
+			if (cards.at(i).value == 11)	// Checks & Saves the aces
 			{
 				A++;
 			}
 		}
-		if (hand > 21 && A > 0) // if hand value goes over 21 subtracts 10.
+		if (hand > 21 && A > 0)		 // if hand value goes over 21 subtracts 10.
 		{
 			hand -= 10;
 		}
@@ -55,17 +55,14 @@ struct Hand
 	
 };
 
-card getrandomcard();
+card getrandomcard();	// generates a random card with value number and type.
 card getrandomcard()
 {
 	const int randomnumber = rand() % availablecards.size();
-	//cout << "randomnumber: " << randomnumber << endl;
-	//cout << "availablecards.size(): " << availablecards.size() << endl;
 	usedcards.push_back(availablecards[randomnumber]);	
 	card Card;
 	Card.type = availablecards[randomnumber];
 	availablecards.erase(availablecards.begin() + randomnumber);
-	//cout << "Card.type.number: " << Card.type.number << endl;
 	switch (Card.type.number)
 	{
 	case 9: Card.value = 10;
@@ -84,6 +81,7 @@ card getrandomcard()
 
 	return Card;
 }
+
 void shuffle();
 void shuffle() // used cards after 1 round back into available cards
 {
@@ -93,12 +91,6 @@ void shuffle() // used cards after 1 round back into available cards
 	}
 	usedcards.erase(usedcards.begin(), usedcards.end());
 }
-/*int wincon();
-int wincon()
-{
-
-}*/
-
 
 int main() {
 	srand(time(NULL));
@@ -112,9 +104,7 @@ int main() {
 			availablecards.push_back(type);
 		}
 	}
-	//card Card = getrandomcard();
-	//cout << Card.value << " " << Card.display; // value, number&type
-	//cout << Card.display;
+
 	
 	int option;
 	int money = 100;
@@ -131,8 +121,7 @@ int main() {
 			}
 		} while (bet < 10); 
 		money -= bet;
-		//cout << money;
-		system("pause");
+		//system("pause");
 		Hand player;
 		Hand dealer;
 		dealer.cards.push_back(getrandomcard());
@@ -143,20 +132,32 @@ int main() {
 			system("cls");
 			dealer.getdisplay();
 			cout << "Dealers card is: "<< dealer.getsum() << "\n" << endl;
+			cout << "==========================\n" << endl;
 			player.getdisplay();
 			cout << "Your hand is: " << player.getsum() << "\n" << endl;
-
-			//cout << "hand value:" << player.getsum() << "\ncard value:" << Card.value << endl;
-			//cout << Card.display << endl;
-			cout << "\nhit or stand\n";
-			cout << " 1       2  \n";
+			cout << "==========================\n" << endl;
+			cout << "\nHit or Stand\n";
+			cout << "[1]     [2] \n";
 			cin >> option;
 			if (option == 1)
 			{
 				system("cls");
 				player.cards.push_back(getrandomcard());
 			}
-			
+			/*int key = _getch();
+			cout << key << endl;
+			system("pause");
+			key = tolower(key);
+			switch (key)
+			{
+			case 'X': 
+				cout << "hello enter";
+				system("cls");
+				player.cards.push_back(getrandomcard());
+				break;
+			default: option++;
+				break;
+			}*/// Tried using getch to little success
 			
 		} while ( option == 1 && player.getsum() < 21);// hand value < 21 || stand
 		//system("cls");
@@ -188,9 +189,11 @@ int main() {
 			}*/
 			system("cls");
 			dealer.getdisplay();
-			cout << "Dealers hand is: " << dealer.getsum() << "\n" << endl;
+			cout << "Dealers card is: " << dealer.getsum() << "\n" << endl;
+			cout << "==========================\n" << endl;
 			player.getdisplay();
-			cout << "Your hand is: " << player.getsum() << endl;
+			cout << "Your hand is: " << player.getsum() << "\n" << endl;
+			cout << "==========================\n" << endl;
 
 			if (dealer.getsum() > 21)
 			{
@@ -221,7 +224,6 @@ int main() {
 					cout << "\n\nDealer wins." << endl;
 					cout << "You lost: " << bet << "$" << endl;
 				}
-				system("pause");
 			}
 
 
