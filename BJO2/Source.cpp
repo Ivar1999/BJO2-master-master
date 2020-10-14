@@ -25,17 +25,25 @@ struct card
 };
 struct Hand
 {
+	int sum;
 	vector <card> cards;
 	int getsum() {
 		int hand = 0;
+		int A = 0;
 		for (int i = 0; i < cards.size(); i++)
 		{
 			//cout << i+1 << ". card is: " << cards.at(i).value << endl;
 			//cout << i +1 << ". card is: " <<cards.at(i).display << endl;
 			hand += cards.at(i).value;
-
+			if (cards.at(i).value == 11) // Checks & Saves the aces
+			{
+				A++;
+			}
 		}
-		
+		if (hand > 21 && A > 0) // if hand value goes over 21 subtracts 10.
+		{
+			hand -= 10;
+		}
 		return hand;
 	}	
 	void getdisplay() {
@@ -44,7 +52,7 @@ struct Hand
 			cout << i + 1 << ". card is: " << cards.at(i).display << endl;
 		}
 	}
-
+	
 };
 
 card getrandomcard();
